@@ -1,0 +1,190 @@
+Python - Pong
+
+
+1. Import turtle 
+2. 
+3. Wn = turtle.Screen
+4. Wn.title(‘pong’)
+5. Wn.bgcolor(‘black’)
+6. Wn.setup(width=800, height=600)
+7. Wn.tracer(0)
+
+Notes:
+(Import turtle) 
+- turtle module, lets us run some basic graphics.
+
+(Wn = turtle.Screen) 
+- A function that we are calling and setting a variable
+- Wn means window and were also use the dot notion
+- Dot notation is a way to access the attribute and methods of each method on instances of different object classes
+
+(Wn.title(‘pong’)
+- Calling the widow or program by a name 
+
+(Wn.bgcolor(‘black’)
+- This line is settings the window to a color, is black 
+
+(Wn.setup(width=800, height=600))
+- This line is setting up the parameters of the window
+- So 800 wide by 600 tall with the center at 00.
+- +300, -300 is for height
+- +400, -400 is for width
+
+(Wn.tracer(0))
+- Stops the window from updating and so we manually update it 
+
+
+1. # main game loop
+2. While true:
+3. wn.update()
+
+Notes:
+(While true: wn.update())
+- A while loop that every time the game loops, updates the screen
+- While loop 
+
+
+1. # Paddle A
+2. paddle_a = turtle.Turtle()
+3. paddle_a.speed(0)
+4. paddle_a.shape(‘square’)
+5. paddle_a.shapesize(stretch_wid=5, stretch_len=1)
+6. paddle_a.color(‘white’)
+7. paddle_a.penup()
+8. paddle_a.goto(-350, 0)
+
+* Paddle B is the same thing as paddle A. The difference is the name(paddle_b)
+* Also, change the negative to a positive
+
+Note:
+(paddle_a = turtle.Turtle())
+- This is called a turtle object. Which is turtle.Turtle
+    - Small t because that is our module 
+    - Capital T because that is the class name
+
+(paddle_a.speed(0))
+- This isn’t the speed of the paddle. Just the speed of the paddle
+    - Which is the animation
+    - Needed when dealing with import turtle
+- It sets the speed to the maximum possible speed
+
+(paddle_a.shape(‘square’))
+- In module turtle there basic shapes
+    - Circle
+    - Square
+    - Triangle
+
+(paddle_a.shapesize(stretch_wid=5, strentch_len=1))
+- We are stretching the width by 5 (5*20=10)
+
+(paddle_a.color(‘white’)
+- Self-explanatory 
+
+(paddle_a.penup())
+- Turtles, by definition, what they do is they draw a line as they’re moving, we don’t need to draw a line, because that’s now what this program does
+
+(paddle_a.goto(-350, 0))
+- This will determine where the paddle will be located
+
+
+1. # Ball
+2. ball = turtle.Turtle()
+3. ball.speed(0)
+4. ball.shape(‘square’)
+5. ball.color(‘white’)
+6. ball.penup()
+7. ball.goto(0, 0) 
+
+* Everything for the ball Is similar to paddles A & B 
+* But we took off the shape size & change the location to the center of the screen (0,0)
+
+
+1. # Function
+2. Def paddle_a_up():
+3. Y = paddle_a.ycor()
+4. Y += 20
+5. Paddle_a.sety(y)
+
+* So for paddle_a_down you’ll change += to -=
+    * The same goes for paddle_b_down
+* This is the same for paddle_b_up
+
+Note: 
+(Def paddle_a_up())
+- Defining a function in which we are creating a movement to one of the paddles
+
+(y=paddle_a.ycor())
+- paddle_a is the name of the object
+- .ycor is from the turtle module
+    - Which returns the coordinate of y & is short for the y coordinate
+
+(Y += 20)
+- We are increasing the value to make the paddle move up
+    - Would add 20 pixels to the coordinates
+- Which is the opposite has a negative(-=) to move down
+
+
+1. # Keyboard binding
+2. Wn.listen()
+3. Wn.onkeypress(paddle_a_up, ‘w’)
+
+* This will be the same for paddle_b_up
+    * But it’s going to ‘Up’, instead of ‘w’
+* For paddle_a_down change ‘w’ to ’s’
+
+Note:
+(Wn.listen())
+- Tells the program to listen for keyboard input
+
+(Wn.onkeypress(paddle_a_up, ‘w’))
+- When the user presses w, call the function, paddle_a_up
+
+
+Adding more to # Ball
+1. ball.dx = 2
+2. ball.dy = 2
+
+Note:
+(Ball.dx = 2)
+(ball.dy = 2)
+- Dx (d means delta or change) 
+- Every time our ball moves, it moves by two pixels
+    - Since x is positive, it’s going to move to the right by two
+    - Since y is positive, it’s going to move up by two
+
+
+Adding more to # main game loop
+1. # move the ball 
+2. Ball.setx(ball.xcor() + ball.dx)
+3. Ball.sety(ball.ycor() + ball.dy)
+
+
+Note:
+(Ball.setx(ball.xcor() + ball.dx)) 
+- So the ball starts at 00. So the first time through this loop, it’s going to go to an x times the loop is gonna go to two
+- Same for y
+
+
+Adding more to # main game loop
+1. # Border checking
+2. If ball .ycor() > 290:
+3. Ball.sety(290)
+4. Ball.dy *= -1 
+
+
+Note:
+(If ball.ycor() > 290: ball.sety(290))
+- If the current y coordinate is greater than 290. What we do is set it back to 290.  Which avoids certain types of problems. 
+
+(Ball.dy *= -1)
+- It reverses the direction. If dy minus negative one is negative two. It should reverse the direction of the ball
+
+
+Adding more to # main game loop
+1. if ball.xcor() > 390:
+2.     ball.goto(0, 0)
+3.     ball.dx *= -1
+
+
+* The same function as Y but instead it’s flipped to the width, so we change it to the x coordinates
+* Once it goes out of bound it resets to center (0,0) and goes the opposite way 
